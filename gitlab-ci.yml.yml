@@ -1,0 +1,22 @@
+stages:
+    - build_stage
+    - deploy_stage
+
+build:
+    stage: build_stage
+    script:
+        - docker --version
+        - docker build -t pyapp .
+    tags:
+        - ec2
+        - server
+
+deploy:
+    stage: deploy_stage
+    script:
+       
+        - docker run -d --name pythoncontainer -p 80:8080 pyapp
+     
+    tags:
+        - ec2
+        - server
